@@ -1,12 +1,12 @@
 part of 'activate_favorites_cubit.dart';
 
 class ActivateFavoritesState {
-  final BuiltMap<String, Source> favoritesMap;
+  final BuiltMap<String, Article> favoritesMap;
 
   ActivateFavoritesState(this.favoritesMap);
 
-  bool isFavorites(id) {
-    return favoritesMap?.containsKey(id) == true;
+  bool isFavorites(url) {
+    return favoritesMap?.containsKey(url) == true;
   }
 
   // factory ActivateFavoritesState.fromMap(Map<String, dynamic> map) {

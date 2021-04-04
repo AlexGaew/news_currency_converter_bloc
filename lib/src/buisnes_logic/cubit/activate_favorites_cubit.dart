@@ -8,17 +8,17 @@ part 'activate_favorites_state.dart';
 
 class ActivateFavoritesCubit extends Cubit<ActivateFavoritesState> {
   ActivateFavoritesCubit()
-      : super(ActivateFavoritesState(BuiltMap<String, Source>()));
+      : super(ActivateFavoritesState(BuiltMap<String, Article>()));
 
-  void addFavorites(Source source) {
+  void addFavorites(Article article) {
     emit(ActivateFavoritesState(state.favoritesMap.rebuild(
-        (s) => s[source.name] = source)));
+        (s) => s[article.url] = article)));
   }
 
-  void removeFavorites(String id) {
+  void removeFavorites(String url) {
     emit(
       ActivateFavoritesState(
-        state.favoritesMap.rebuild((s) => {s.remove(id)}),
+        state.favoritesMap.rebuild((s) => {s.remove(url)}),
       ),
     );
   }
