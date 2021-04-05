@@ -15,11 +15,16 @@ import 'package:news_currency_converter_bloc/src/presentation/widgets/currency_c
 import 'package:news_currency_converter_bloc/src/presentation/widgets/news_blogs.dart';
 
 class ChangeCurrencyPage extends StatelessWidget {
-  String amount = '0';
-  ConvertModelDetails convertModelDetails;
+
+ final ConvertModelDetails convertModelDetails;
+  TextEditingController textEditingController = TextEditingController();
+  ChangeCurrencyPage({
+    this.convertModelDetails,
+  });
 
   @override
   Widget build(BuildContext context) {
+    String amount = '0';
     Color _getColor(Set<MaterialState> states) {
       Set<MaterialState> interactivState = <MaterialState>{
         MaterialState.pressed,
@@ -67,8 +72,10 @@ class ChangeCurrencyPage extends StatelessWidget {
                           'https://flagcdn.com/120x90/${context.select((ChangedCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
                       onChangeTextField: (value) {
                         amount = value;
+                       print(textEditingController?.value ?? 'null');
                       },
-                      hintTextField: '0',
+                     textEditingController: textEditingController,
+                     // initialValue: textEditingController.value.text,
                     );
                   }
                   return CircularProgressIndicator();
@@ -103,7 +110,11 @@ class ChangeCurrencyPage extends StatelessWidget {
                         ),
                         image: Image.network(
                             'https://flagcdn.com/120x90/${context.select((ChangedSecondCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
-                        hintTextField: '${context.select((FetchConvertCurrencyCubit f) => f.state.convertModelDetails.first.rate)}',
+                        hintTextField:
+                        // textEditingController.value.text.contains("")
+                        //     ? '1'
+                        //     :
+                        '${context.select((FetchConvertCurrencyCubit f) => f.state.convertModelDetails.first.rate)}',
                       );
                     }
 
@@ -139,10 +150,13 @@ class ChangeCurrencyPage extends StatelessWidget {
                 height: 25,
               ),
               Expanded(
-                child:  ListView.separated(
-                  separatorBuilder: (context,ind)=> Padding(
+                child: ListView.separated(
+                  separatorBuilder: (context, ind) => Padding(
                     padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Divider(color: Colors.white,height: 30,),
+                    child: Divider(
+                      color: Colors.white,
+                      height: 30,
+                    ),
                   ),
                   itemCount:
                       context.watch<TopHeadlinesCubit>().state.article.length,
