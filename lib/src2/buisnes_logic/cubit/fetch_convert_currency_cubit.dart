@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:news_currency_converter_bloc/src/data/models/convert_model_details.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/async_currency_repository.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/currency_perository.dart';
+import 'package:news_currency_converter_bloc/src/data/repositories/currency/async_currency_repository.dart';
+import 'package:news_currency_converter_bloc/src/data/repositories/currency/currency_perository.dart';
 
 part 'fetch_convert_currency_state.dart';
 

@@ -6,7 +6,7 @@ import 'package:news_currency_converter_bloc/src/data/models/convert_model.dart'
 import 'package:news_currency_converter_bloc/src/data/models/convert_model_details.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency_details.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/currency_perository.dart';
+import 'package:news_currency_converter_bloc/src/data/repositories/currency/currency_perository.dart';
 
 class AsyncCurrencyRepository extends CurrencyRepository {
   FetchData fetchDataFromNetworks = FetchDataFromNetworks();

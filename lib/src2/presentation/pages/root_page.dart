@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/async_currency_repository.dart';
 import 'package:news_currency_converter_bloc/src/presentation/pages/change_currency.dart';
 import 'package:news_currency_converter_bloc/src/presentation/pages/post_cast_pages.dart';
 import 'favorites_page.dart';
-import 'package:news_currency_converter_bloc/src/buisnes_logic/bloc/currency_bloc/currency_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RootPage extends StatefulWidget {
 
