@@ -43,6 +43,7 @@ class NewsBlogWidget extends StatelessWidget {
             ],
           ),
           Positioned(
+
             top: 15,
             right: 25,
             child: FavoriteButton(article: article,),
@@ -54,21 +55,3 @@ class NewsBlogWidget extends StatelessWidget {
     );
   }
 }
-
-
-// Stack(
-//   clipBehavior: Clip.hardEdge,
-//   children: <Widget>[
-//     ListTile(
-//       title:
-//       Image.network(article.urlToImage ??
-//           'https://s2.best-wallpaper.net/wallpaper/2560x1600/1212/Beautiful-nature-landscape-lake-mountains-trees-village-blue-sky-white-clouds_2560x1600.jpg'),
-//       subtitle: Text(
-//         article.title,
-//         style: TextStyle(
-//             color: Theme.of(context).primaryColor, fontSize: 15),
-//       ),
-//     ),
-
-//   ],
-// ),

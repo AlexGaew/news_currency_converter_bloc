@@ -8,85 +8,44 @@ import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/changed_cur
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/changed_second_currency_cubit.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/fetch_convert_currency_cubit.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/news/top_headlines_cubit.dart';
+import 'package:news_currency_converter_bloc/src/buisnes_logic/povider/data.dart';
 import 'package:news_currency_converter_bloc/src/data/models/convert_model_details.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency_details.dart';
 import 'package:news_currency_converter_bloc/src/presentation/screens/currency_list.dart';
 import 'package:news_currency_converter_bloc/src/presentation/widgets/currency_card.dart';
 import 'package:news_currency_converter_bloc/src/presentation/widgets/news_blogs.dart';
+import 'package:provider/provider.dart';
 
 class ChangeCurrencyPage extends StatelessWidget {
-  String amount = '0';
-  ConvertModelDetails convertModelDetails;
+  final ConvertModelDetails convertModelDetails;
+  TextEditingController textEditingController = TextEditingController();
+
+  ChangeCurrencyPage({
+    this.convertModelDetails,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Color _getColor(Set<MaterialState> states) {
-      Set<MaterialState> interactivState = <MaterialState>{
-        MaterialState.pressed,
-        MaterialState.hovered,
-        MaterialState.focused
-      };
-      if (states.any(interactivState.contains)) {
-        return Colors.red;
-      }
-      return Colors.orange;
-    }
-
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: BlocBuilder<CurrencyBloc, CurrencyState>(
-                    builder: (context, state) {
-                  if (state is CurrencyStateLoading) {
-                    return CircularProgressIndicator();
-                  }
-                  if (state is CurrencyStateSuccess) {
-                    return ChangeCurrencyCardWidget(
-                      onTap: () async {
-                        context.read<ChangedCurrencyCubit>().setCurrency(
-                              await Navigator.push<CurrencyDetails>(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return CurrencyList();
-                                  },
-                                ),
-                              ),
-                            );
-                      },
-                      title: Text(
-                        "${context.select((ChangedCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.code)}",
-                      ),
-                      image: Image.network(
-                          'https://flagcdn.com/120x90/${context.select((ChangedCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
-                      onChangeTextField: (value) {
-                        amount = value;
-                      },
-                      hintTextField: '0',
-                    );
-                  }
-                  return CircularProgressIndicator();
-                }),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: BlocBuilder<CurrencyBloc, CurrencyState>(
-                  builder: (context, state) {
+    return ChangeNotifierProvider<Data>(
+      create: (_) => Data(),
+      builder: (context, child) => SafeArea(
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: BlocBuilder<CurrencyBloc, CurrencyState>(
+                      builder: (context, state) {
                     if (state is CurrencyStateLoading) {
                       return CircularProgressIndicator();
                     }
                     if (state is CurrencyStateSuccess) {
                       return ChangeCurrencyCardWidget(
                         onTap: () async {
-                          context
-                              .read<ChangedSecondCurrencyCubit>()
-                              .setSecondCurrency(
+                          context.read<ChangedCurrencyCubit>().setCurrency(
                                 await Navigator.push<CurrencyDetails>(
                                   context,
                                   MaterialPageRoute(
@@ -98,67 +57,100 @@ class ChangeCurrencyPage extends StatelessWidget {
                               );
                         },
                         title: Text(
-                          "${context.select((ChangedSecondCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.code)}",
-                          style: TextStyle(fontSize: 15),
+                          "${context.select((ChangedCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.code)}",
                         ),
                         image: Image.network(
-                            'https://flagcdn.com/120x90/${context.select((ChangedSecondCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
-                        hintTextField: '${context.select((FetchConvertCurrencyCubit f) => f.state.convertModelDetails.first.rate)}',
+                            'https://flagcdn.com/120x90/${context.select((ChangedCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
+                        onChangeTextField: (value) {
+                          context.read<Data>().change(value);
+                          context
+                              .read<FetchConvertCurrencyCubit>()
+                              .getConvertCurrency(
+                                from: context
+                                    .read<ChangedCurrencyCubit>()
+                                    .state
+                                    .currency
+                                    .code,
+                                to: context
+                                    .read<ChangedSecondCurrencyCubit>()
+                                    .state
+                                    .currency
+                                    .code,
+                                amount: int.parse(value) ?? 1,
+                              );
+                        },
                       );
                     }
-
                     return CircularProgressIndicator();
-                  },
+                  }),
                 ),
-              ),
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor: MaterialStateProperty.resolveWith(_getColor),
-                ),
-                onPressed: () {
-                  context.read<FetchConvertCurrencyCubit>().getConvertCurrency(
-                        from: context
-                            .read<ChangedCurrencyCubit>()
-                            .state
-                            .currency
-                            .code,
-                        to: context
-                            .read<ChangedSecondCurrencyCubit>()
-                            .state
-                            .currency
-                            .code,
-                        amount: int.parse(amount) ?? 1,
-                      );
-                },
-                child: Text(
-                  '\u{1F4B1} Convert \u{1F4B1} ',
-                  style: TextStyle(fontSize: 25),
-                ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Expanded(
-                child:  ListView.separated(
-                  separatorBuilder: (context,ind)=> Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Divider(color: Colors.white,height: 30,),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: BlocBuilder<CurrencyBloc, CurrencyState>(
+                    builder: (context, state) {
+                      if (state is CurrencyStateLoading) {
+                        return CircularProgressIndicator();
+                      }
+                      if (state is CurrencyStateSuccess) {
+                        return ChangeCurrencyCardWidget(
+                          onTap: () async {
+                            context
+                                .read<ChangedSecondCurrencyCubit>()
+                                .setSecondCurrency(
+                                  await Navigator.push<CurrencyDetails>(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return CurrencyList();
+                                      },
+                                    ),
+                                  ),
+                                );
+                          },
+                          title: Text(
+                            "${context.select((ChangedSecondCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.code)}",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          image: Image.network(
+                              'https://flagcdn.com/120x90/${context.select((ChangedSecondCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
+                          hintTextField: context.watch<Data>().isNull()
+                              ? context.watch<Data>().value
+                              : '${context.select((FetchConvertCurrencyCubit f) => f.state.convertModelDetails.first.rateForAmount)}',
+                        );
+                      }
+
+                      return CircularProgressIndicator();
+                    },
                   ),
-                  itemCount:
-                      context.watch<TopHeadlinesCubit>().state.article.length,
-                  itemBuilder: (context, count) {
-                    return Builder(builder: (context) {
-                      return NewsBlogWidget(
-                        article: context
-                            .watch<TopHeadlinesCubit>()
-                            .state
-                            .article[count],
-                      );
-                    });
-                  },
                 ),
-              ),
-            ]),
+                SizedBox(
+                  height: 25,
+                ),
+                Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (context, ind) => Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8),
+                      child: Divider(
+                        color: Colors.white,
+                        height: 30,
+                      ),
+                    ),
+                    itemCount:
+                        context.watch<TopHeadlinesCubit>().state.article.length,
+                    itemBuilder: (context, count) {
+                      return Builder(builder: (context) {
+                        return NewsBlogWidget(
+                          article: context
+                              .watch<TopHeadlinesCubit>()
+                              .state
+                              .article[count],
+                        );
+                      });
+                    },
+                  ),
+                ),
+              ]),
+        ),
       ),
     );
   }

@@ -18,6 +18,7 @@ class FavoriteButton extends StatelessWidget {
           final _cubit = BlocProvider.of<ActivateFavoritesCubit>(context);
           if (state.isFavorites(article.url)) {
             return IconButton(
+
               splashColor: Colors.green,
               highlightColor: Colors.orange,
               onPressed: () {
