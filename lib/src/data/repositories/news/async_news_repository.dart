@@ -9,7 +9,6 @@ class AsyncNewsRepository extends NewsRepository {
   @override
   Future<List<Article>> fetchTopHeadlinesNews({country}) async {
     final listArticle = <Article>[];
-    Article _article;
 
     final response = await newsData.getTopHeadlinesNews();
     var article = response['articles'] as Iterable<dynamic>;
@@ -18,19 +17,18 @@ class AsyncNewsRepository extends NewsRepository {
         .cast<Map<String, dynamic>>()
         .map((json) => Article.fromJson(json));
 
-    for(var dto in dtos){
-      int i;
+    for (var dto in dtos) {
       listArticle.add(
-          Article(
-            url: dto.url,
-            title: dto.title,
-            author: dto.author,
-            content: dto.content,
-            description: dto.description,
-            publishedAt: dto.publishedAt,
-            source: dto.source,
-            urlToImage: dto.urlToImage,
-          ),
+        Article(
+          url: dto.url,
+          title: dto.title,
+          author: dto.author,
+          content: dto.content,
+          description: dto.description,
+          publishedAt: dto.publishedAt,
+          source: dto.source,
+          urlToImage: dto.urlToImage,
+        ),
       );
     }
 

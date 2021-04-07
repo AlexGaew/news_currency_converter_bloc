@@ -5,9 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency_details.dart';
 import 'package:news_currency_converter_bloc/src/data/repositories/currency/async_currency_repository.dart';
-
 part 'currency_event.dart';
-
 part 'currency_state.dart';
 
 class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState> {

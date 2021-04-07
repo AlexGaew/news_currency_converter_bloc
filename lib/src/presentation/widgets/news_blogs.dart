@@ -1,11 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/news/top_headlines_cubit.dart';
 import 'package:news_currency_converter_bloc/src/data/models/news_model/article.dart';
-import 'package:news_currency_converter_bloc/src/presentation/widgets/test.dart';
-import 'package:vertical_card_pager/vertical_card_pager.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:news_currency_converter_bloc/src/presentation/pages/news.dart';
 import 'favorites_button.dart';
 
 class NewsBlogWidget extends StatelessWidget {
@@ -24,29 +20,62 @@ class NewsBlogWidget extends StatelessWidget {
           Column(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.only(topRight: Radius.circular(15),topLeft: Radius.circular(15)),
-                child: Image.network(
-                  article.urlToImage ??
-                      'https://s2.best-wallpaper.net/wallpaper/'
-                          '2560x1600/1212/Beautiful-nature-landscape-lake-mountains-'
-                          'trees-village-blue-sky-white-clouds_2560x1600.jpg',
-                  fit: BoxFit.fitWidth,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    topLeft: Radius.circular(15)),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => NewsPage(
+                          article: article,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Hero(
+                    flightShuttleBuilder: (BuildContext flightContext,
+                        Animation<double> animation,
+                        HeroFlightDirection flightDirection,
+                        BuildContext fromHeroContext,
+                        BuildContext toHeroContext) {
+                      final Hero toHero = fromHeroContext.widget;
+                      return RotationTransition(
+                        turns: animation,
+                        child: toHero.child,
+                      );
+                    },
+                    tag: '${article.url}:${article.description}',
+                    child: Image.network(
+                      article.urlToImage ??
+                          'https://s2.best-wallpaper.net/wallpaper/'
+                              '2560x1600/1212/Beautiful-nature-landscape-lake-mountains-'
+                              'trees-village-blue-sky-white-clouds_2560x1600.jpg',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
                 ),
               ),
               ListTile(
-                //tileColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30))),
-                title: Text(article.title,style: TextStyle(color: Theme.of(context).primaryColor,
-                fontSize: 18),),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30))),
+                title: Text(
+                  article.title,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor, fontSize: 18),
+                ),
               ),
             ],
           ),
           Positioned(
-
             top: 15,
             right: 25,
-            child: FavoriteButton(article: article,),
+            child: FavoriteButton(
+              article: article,
+            ),
           ),
         ],
       ),

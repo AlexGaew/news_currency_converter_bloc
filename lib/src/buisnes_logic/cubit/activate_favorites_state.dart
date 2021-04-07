@@ -9,15 +9,15 @@ class ActivateFavoritesState {
     return favoritesMap?.containsKey(url) == true;
   }
 
-  // factory ActivateFavoritesState.fromMap(Map<String, dynamic> map) {
-  //   return ActivateFavoritesState(
-  //     BuiltMap<String, dynamic>.from(((map['favoritesMap']) as Map) ?? {})
-  //         .map((key, value) => MapEntry(
-  //               key,
-  //               Article.fromJson(value),
-  //             )),
-  //   );
-  // }
+  factory ActivateFavoritesState.fromMap(Map<String, dynamic> map) {
+    return ActivateFavoritesState(
+      BuiltMap<String, dynamic>.from(((map['favoritesMap']) as Map) ?? {})
+          .map((key, value) => MapEntry(
+                key,
+                Article.fromJson(value),
+              )),
+    );
+  }
 
   Map<String, dynamic> toMap() {
     // ignore: unnecessary_cast

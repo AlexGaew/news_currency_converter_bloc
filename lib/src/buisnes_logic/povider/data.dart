@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class Data extends ChangeNotifier {
+class TextFieldToNull extends ChangeNotifier {
   String value = '0';
   bool a = false;
 

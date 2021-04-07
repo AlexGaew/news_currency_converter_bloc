@@ -12,7 +12,6 @@ class CurrencyList extends StatefulWidget {
 }
 
 class _CurrencyListState extends State<CurrencyList> {
-  // Controller _controller = Controller();
   final key = new GlobalKey<ScaffoldState>();
   final TextEditingController _searchQuery = TextEditingController();
   bool _IsSearching = true;

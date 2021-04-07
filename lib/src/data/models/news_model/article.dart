@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:news_currency_converter_bloc/src/data/models/news_model/source.dart';
 
 class Article extends Equatable {
   final Map<String,dynamic> source;

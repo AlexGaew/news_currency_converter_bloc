@@ -1,4 +1,3 @@
-import 'package:news_currency_converter_bloc/src/api/coin_data.dart';
 import 'package:news_currency_converter_bloc/src/api/currency_data.dart';
 import 'package:news_currency_converter_bloc/src/data/data_providers/fetch_data.dart';
 import 'package:news_currency_converter_bloc/src/data/data_providers/fetch_data_from_networks.dart';
@@ -6,7 +5,7 @@ import 'package:news_currency_converter_bloc/src/data/models/convert_model.dart'
 import 'package:news_currency_converter_bloc/src/data/models/convert_model_details.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency_details.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/currency_perository.dart';
+import 'currency_perository.dart';
 
 class AsyncCurrencyRepository extends CurrencyRepository {
   FetchData fetchDataFromNetworks = FetchDataFromNetworks();
@@ -48,6 +47,4 @@ class AsyncCurrencyRepository extends CurrencyRepository {
     });
     return convertConvertModelDetailsList;
   }
-
-
 }

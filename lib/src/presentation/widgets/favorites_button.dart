@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/activate_favorites_cubit.dart';
 import 'package:news_currency_converter_bloc/src/data/models/news_model/article.dart';
-import 'package:news_currency_converter_bloc/src/data/models/news_model/source.dart';
 
 class FavoriteButton extends StatelessWidget {
   final Article article;

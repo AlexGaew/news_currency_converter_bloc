@@ -4,17 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-import 'package:news_currency_converter_bloc/src/data/data_providers/fetch_data_from_networks.dart';
 import 'package:news_currency_converter_bloc/src/data/models/convert_model_details.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/async_currency_repository.dart';
-import 'file:///D:/AndroidStudioProjects/news_currency_converter_bloc/lib/src/data/repositories/currency/currency_perository.dart';
+import 'package:news_currency_converter_bloc/src/data/repositories/currency/async_currency_repository.dart';
+import 'package:news_currency_converter_bloc/src/data/repositories/currency/currency_perository.dart';
 
 part 'convert_event.dart';
 
 part 'convert_state.dart';
 
 class ConvertBloc extends Bloc<ConvertEvent, ConvertState> {
-  CurrencyRepository currencyRepository = AsyncCurrencyRepository();
+  CurrencyRepository currencyRepository = AsyncCurrencyRepository() as CurrencyRepository;
 
   ConvertBloc({ConvertStateLoading initialState}) : super(initialState);
 

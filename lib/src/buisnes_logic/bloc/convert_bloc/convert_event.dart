@@ -1,7 +1,4 @@
 part of 'convert_bloc.dart';
-
-
-
 class ConvertEvent {
 
   final int amount;

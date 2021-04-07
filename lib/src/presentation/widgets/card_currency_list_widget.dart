@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_currency_converter_bloc/src/buisnes_logic/bloc/currency_bloc/currency_bloc.dart';
 import 'package:news_currency_converter_bloc/src/const/cons.dart';
 import 'package:news_currency_converter_bloc/src/data/models/currency_details.dart';
 

@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_currency_converter_bloc/src/buisnes_logic/bloc/convert_bloc/convert_bloc.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/bloc/currency_bloc/currency_bloc.dart';
-import 'package:news_currency_converter_bloc/src/buisnes_logic/bloc/news_bloc/news_bloc.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/changed_currency_cubit.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/changed_second_currency_cubit.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/fetch_convert_currency_cubit.dart';
@@ -26,8 +24,8 @@ class ChangeCurrencyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<Data>(
-      create: (_) => Data(),
+    return ChangeNotifierProvider<TextFieldToNull>(
+      create: (_) => TextFieldToNull(),
       builder: (context, child) => SafeArea(
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
@@ -62,7 +60,7 @@ class ChangeCurrencyPage extends StatelessWidget {
                         image: Image.network(
                             'https://flagcdn.com/120x90/${context.select((ChangedCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
                         onChangeTextField: (value) {
-                          context.read<Data>().change(value);
+                          context.read<TextFieldToNull>().change(value);
                           context
                               .read<FetchConvertCurrencyCubit>()
                               .getConvertCurrency(
@@ -113,8 +111,8 @@ class ChangeCurrencyPage extends StatelessWidget {
                           ),
                           image: Image.network(
                               'https://flagcdn.com/120x90/${context.select((ChangedSecondCurrencyCubit changedCurrencyCubit) => changedCurrencyCubit.state.currency.isoCode2.toLowerCase())}.webp'),
-                          hintTextField: context.watch<Data>().isNull()
-                              ? context.watch<Data>().value
+                          hintTextField: context.watch<TextFieldToNull>().isNull()
+                              ? context.watch<TextFieldToNull>().value
                               : '${context.select((FetchConvertCurrencyCubit f) => f.state.convertModelDetails.first.rateForAmount)}',
                         );
                       }

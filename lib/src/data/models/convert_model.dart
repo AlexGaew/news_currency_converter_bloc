@@ -3,23 +3,6 @@ import 'package:flutter/material.dart';
 
 import 'convert_model_details.dart';
 
-// {
-// "base_currency_code":"AUD"
-// "base_currency_name":"Australian dollar"
-// "amount":"1.0000"
-// "updated_date":"2021-03-28"
-// "rates":{
-// "CAD":{
-// "currency_name":"Canadian dollar"
-// "rate":"0.9577"
-// "rate_for_amount":"0.9577"
-// }
-//
-//
-// }
-// "status":"success"
-// }
-
 class ConvertModel extends Equatable {
   final String baseCurrencyCode;
   final String baseCurrencyName;

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_currency_converter_bloc/src/buisnes_logic/cubit/activate_favorites_cubit.dart';
 import 'package:news_currency_converter_bloc/src/presentation/widgets/favorites_blog_card.dart';
-import 'package:news_currency_converter_bloc/src/presentation/widgets/news_blogs.dart';
 
 class FavoritesPage extends StatelessWidget {
   @override
